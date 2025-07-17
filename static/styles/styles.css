@@ -223,6 +223,16 @@ body {
   cursor: pointer;
 }
 
+#file-input-wrapper {
+  display: block;
+  width: 100%;
+}
+
+#file-input-wrapper input[type="file"] {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 /*comments area stuff*/
 .comment-panel {
   display: flex;

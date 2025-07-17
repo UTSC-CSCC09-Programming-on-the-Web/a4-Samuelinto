@@ -5,38 +5,6 @@ import { authenticateToken } from "../middleware/authenticate.js";
 
 export const commentsRouter = Router();
 
-// commentsRouter.post("/", async (req, res) => {
-//   if (!req.body || typeof req.body !== "object") {
-//     return res.status(400).json({ error: "Request body must be a JSON object." });
-//   }
-
-//   const { imageId, author, content } = req.body;
-
-//   if (
-//     typeof imageId !== "string" ||
-//     typeof author !== "string" ||
-//     typeof content !== "string" ||
-//     imageId.trim() === "" ||
-//     author.trim() === "" ||
-//     content.trim() === ""
-//   ) {
-//     return res.status(422).json({
-//       error: "Fields imageId, author, and content can't be empty.",
-//     });
-//   }
-
-//   const image = await Image.findByPk(imageId);
-//   if (!image) return res.status(404).json({ error: "Image not found" });
-
-//   const comment = await Comment.create({
-//     imageId: imageId.trim(),
-//     author: author.trim(),
-//     content: content.trim(),
-//   });
-
-//   return res.json(comment);
-// });
-
 commentsRouter.get("/:imageId", authenticateToken, async (req, res) => {
   const image = await Image.findByPk(req.params.imageId);
   if (!image) {

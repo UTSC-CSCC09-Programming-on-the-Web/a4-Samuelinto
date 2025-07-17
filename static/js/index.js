@@ -113,6 +113,7 @@ function renderImage(direction) {
     titleElem.textContent = "No title";
     authorElem.textContent = "Unknown";
     document.getElementById("comment-list").innerHTML = "";
+    document.getElementById("comment-controls-container").classList.add("hidden");
     return;
   } else {
     imageEl.style.display = "block";
@@ -230,6 +231,16 @@ function openAddImageModal() {
 
 function closeAddImageModal() {
   setModalOpen(false);
+
+  setFile(null);
+
+  const fileInput = document.getElementById("image-url");
+  const fileNameDisplay = document.getElementById("file-name-display");
+  const fileInputWrapper = document.getElementById("file-input-wrapper");
+
+  if (fileInput) fileInput.value = "";
+  if (fileNameDisplay) fileNameDisplay.textContent = "";
+  if (fileInputWrapper) fileInputWrapper.style.display = "block";
 }
 
 function submitNewImage() {
@@ -247,6 +258,8 @@ function submitNewImage() {
     setTitle("");
     setAuthor("");
     setFile(null);
+    document.getElementById("file-name-display").textContent = "";
+    document.getElementById("file-input-wrapper").style.display = "block";
     closeAddImageModal();
     loadImages(getImagePage());
   });
@@ -258,6 +271,10 @@ function addComment(event) {
   if (!content) return;
 
   const image = getCurrentImage();
+  if (!image) {
+    alert("No images available to comment on.");
+    return;
+  }
   showLoading();
   apiService.addComment(String(image.id), content).then(function () {
     document.getElementById("comment-text").value = "";
@@ -397,7 +414,21 @@ meact.useEffect(() => {
 document.addEventListener("input", function (e) {
   if (e.target.id === "image-title") setTitle(e.target.value);
   if (e.target.id === "image-author") setAuthor(e.target.value);
-  if (e.target.id === "image-url") setFile(e.target.files[0]);
+  if (e.target.id === "image-url") {
+    const file = e.target.files[0];
+    setFile(file);
+
+    const fileNameDisplay = document.getElementById("file-name-display");
+    const fileInputWrapper = document.getElementById("file-input-wrapper");
+
+    if (file) {
+      fileNameDisplay.textContent = file.name;
+      fileInputWrapper.style.display = "none"; // 🔒 Hide file input
+    } else {
+      fileNameDisplay.textContent = "";
+      fileInputWrapper.style.display = "block"; // 🔓 Show if cleared
+    }
+  }
 });
 
 window.prevImage = prevImage;

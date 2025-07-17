@@ -74,12 +74,6 @@
                   ❯
                 </button>
               </div>
-
-              <!-- <div class="carousel-page-controls">
-                <button onclick="prevImagePage()">⟨ Prev Page</button>
-                <span id="image-page-indicator">Page 1</span>
-                <button onclick="nextImagePage()">Next Page ⟩</button>
-              </div> -->
             </div>
           </div>
         </div>
@@ -94,7 +88,6 @@
               <button onclick="nextCommentPage()">›</button>
             </div>
             <form onsubmit="addComment(event)">
-              <!-- <input type="text" id="comment-author" placeholder="Your name" required /> -->
               <textarea
                 id="comment-text"
                 placeholder="Your comment"
@@ -114,7 +107,10 @@
         <h2>Add New Image</h2>
         <input type="text" id="image-title" placeholder="Title" />
         <input type="text" id="image-author" placeholder="Author" />
-        <input type="file" id="image-url" accept="image/*" />
+        <div id="file-input-wrapper">
+          <input type="file" id="image-url" accept="image/*" />
+        </div>
+        <span id="file-name-display" style="margin-left: 10px; color: #555;"></span>
         <button onclick="submitNewImage()">Add</button>
       </div>
     </div>
