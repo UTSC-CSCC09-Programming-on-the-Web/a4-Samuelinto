@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Gallery Project</title>
+    <link href="styles/styles.css" rel="stylesheet" type="text/css" />
+    <link href="styles/cols.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="gallery-buttons">
+      <button
+        class="gallery-button"
+        id="all-gallery-button"
+        onclick="setGalleryAll()"
+      >
+        All Galleries
+      </button>
+      <button
+        class="gallery-button"
+        id="my-gallery-button"
+        onclick="setGalleryMine()"
+      >
+        My Gallery
+      </button>
+    </div>
+    <div class="auth-controls">
+      <button
+        class="auth-button-fixed hidden"
+        id="login-button"
+        onclick="goToLogin()"
+      >
+        Login/Register
+      </button>
+      <button
+        class="auth-button-fixed hidden"
+        id="logout-button"
+        onclick="handleLogout()"
+      >
+        Log Out
+      </button>
+    </div>
+    <div class="page-wrapper">
+      <div class="row center-xs middle-xs gallery-layout">
+        <!--left side for title and author-->
+        <div class="col-3 col-sm-3 info-panel">
+          <h2 id="image-title-display">Title</h2>
+          <p id="image-author-display">Author</p>
+        </div>
+
+        <!--center images and buttons-->
+        <div class="col-6 col-sm-6">
+          <div class="image-wrapper">
+            <div class="carousel">
+              <div class="carousel-image-container">
+                <img id="carousel-image" />
+                <div id="no-images-message" class="hidden">
+                  No images available
+                </div>
+              </div>
+              <div class="carousel-controls">
+                <button class="nav-button bottom-nav" onclick="prevImage()">
+                  ❮
+                </button>
+                <span id="image-index">0 / 0</span>
+                <button class="delete-button" onclick="deleteImage()">
+                  Delete
+                </button>
+                <button class="add-button" onclick="openAddImageModal()">
+                  Add Image
+                </button>
+                <button class="nav-button bottom-nav" onclick="nextImage()">
+                  ❯
+                </button>
+              </div>
+
+              <!-- <div class="carousel-page-controls">
+                <button onclick="prevImagePage()">⟨ Prev Page</button>
+                <span id="image-page-indicator">Page 1</span>
+                <button onclick="nextImagePage()">Next Page ⟩</button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+        <!--right comments space-->
+        <div class="col-3 col-sm-3 comment-panel">
+          <h3>Comments</h3>
+          <ul id="comment-list"></ul>
+          <div id="comment-controls-container" class="hidden">
+            <div class="comment-controls">
+              <button onclick="prevCommentPage()">‹</button>
+              <button onclick="nextCommentPage()">›</button>
+            </div>
+            <form onsubmit="addComment(event)">
+              <!-- <input type="text" id="comment-author" placeholder="Your name" required /> -->
+              <textarea
+                id="comment-text"
+                placeholder="Your comment"
+                required
+              ></textarea>
+              <button type="submit">Post</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--popup to add image-->
+    <div id="add-image-modal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close-button" onclick="closeAddImageModal()">×</span>
+        <h2>Add New Image</h2>
+        <input type="text" id="image-title" placeholder="Title" />
+        <input type="text" id="image-author" placeholder="Author" />
+        <input type="file" id="image-url" accept="image/*" />
+        <button onclick="submitNewImage()">Add</button>
+      </div>
+    </div>
+
+    <footer>
+      <a href="./credits.html">credits</a>
+    </footer>
+
+    <script src="js/meact.js"></script>
+    <script src="js/api-service.js"></script>
+    <script src="js/index.js"></script>
+
+    <div id="loading-overlay" class="hidden">Loading...</div>
+  </body>
+</html>
