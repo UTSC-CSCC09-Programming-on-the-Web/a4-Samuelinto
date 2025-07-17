@@ -113,7 +113,9 @@ function renderImage(direction) {
     titleElem.textContent = "No title";
     authorElem.textContent = "Unknown";
     document.getElementById("comment-list").innerHTML = "";
-    document.getElementById("comment-controls-container").classList.add("hidden");
+    document
+      .getElementById("comment-controls-container")
+      .classList.add("hidden");
     return;
   } else {
     imageEl.style.display = "block";
@@ -132,22 +134,22 @@ function renderImage(direction) {
 
   if (direction === "next" || direction === "prev") {
     container.classList.add(
-      `fade-out-${direction === "next" ? "left" : "right"}`
+      `fade-out-${direction === "next" ? "left" : "right"}`,
     );
     setTimeout(function () {
       applyImage();
       container.classList.remove(
-        `fade-out-${direction === "next" ? "left" : "right"}`
+        `fade-out-${direction === "next" ? "left" : "right"}`,
       );
       container.classList.add(
-        `fade-in-${direction === "next" ? "right" : "left"}`
+        `fade-in-${direction === "next" ? "right" : "left"}`,
       );
       setTimeout(
         () =>
           container.classList.remove(
-            `fade-in-${direction === "next" ? "right" : "left"}`
+            `fade-in-${direction === "next" ? "right" : "left"}`,
           ),
-        400
+        400,
       );
     }, 400);
   } else {
