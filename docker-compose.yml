@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  webgallery:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./uploads:/usr/src/app/uploads
+    env_file:
+      - .env
+    restart: unless-stopped
