@@ -42,3 +42,14 @@ authRouter.post("/login", async (req, res) => {
 authRouter.get("/validate", authenticateToken, (req, res) => {
   res.json({ id: req.user.id, username: req.user.username });
 });
+
+authRouter.post("/logout", authenticateToken, async (req, res) => {
+  const authHeader = req.headers.authorization;
+  const tokenValue = authHeader?.split(" ")[1];
+  if (!tokenValue) {
+    return res.status(400).json({ error: "Missing token" });
+  }
+
+  await Token.destroy({ where: { value: tokenValue } });
+  res.json({ message: "Logged out successfully" });
+});

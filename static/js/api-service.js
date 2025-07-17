@@ -94,9 +94,19 @@ let apiService = (function () {
   };
 
   module.logout = function (redirect = true) {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      fetch("/api/auth/logout", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      }).catch(() => {});
+    }
+
     localStorage.removeItem("token");
-    if (redirect) window.location.href = "/login.html";
     cachedUser = null;
+
+    if (redirect) window.location.href = "/login.html";
   };
 
   module.isAuthenticated = function () {
